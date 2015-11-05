@@ -13,6 +13,7 @@
 namespace LinusShops\Prophet\Plugins;
 
 use LinusShops\Prophet\Events;
+use LinusShops\Prophet\Events\Options;
 use LinusShops\Prophet\Plugin;
 use LinusShops\Prophet\PluginRepository;
 use PD;
@@ -27,10 +28,13 @@ class Iddqd implements Plugin
 
         $loader = function ($classname) use ($dir) {
             $path = explode('_', $classname);
-            require $dir
+            $path = $dir
                 . '/vendor/linusshops/iddqd/src/app/code/community/'
                 . implode('/', $path)
                 . '.php';
+            if (file_exists($path)) {
+                require ($path);
+            }
         };
 
         spl_autoload_register($loader);
@@ -38,11 +42,11 @@ class Iddqd implements Plugin
 
     public function register()
     {
-        PD::listen(Events::PROPHET_PREMAGENTO, function(&$options=array()){
+        PD::listen(Events::PROPHET_PREMAGENTO, function(Options $options){
             echo "Initializing GodMode...".PHP_EOL;
-            $options['config_model'] = 'Linus_Iddqd_Model_Config';
+            $options->set('config_model', 'Linus_Iddqd_Model_Config');
         });
     }
 }
 
-PluginRepository::register('iddqd', new Iddqd());
+return new Iddqd();
