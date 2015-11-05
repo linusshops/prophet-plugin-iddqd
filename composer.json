@@ -1,0 +1,41 @@
+{
+  "name": "linusshops/prophet-plugin-iddqd",
+  "description": "Enable usage of iddqd for overriding classes during tests",
+  "version": "0.1.1",
+  "type": "utility",
+  "keywords": [
+    "magento",
+    "module",
+    "linus shops",
+    "canadas motorcycle",
+    "mx canada",
+    "prophet",
+    "utility"
+  ],
+  "homepage": "https://github.com/linusshops/prophet-plugin-iddqd",
+  "license": [
+    "MIT"
+  ],
+  "authors": [
+    {
+      "name": "Sam Schmidt",
+      "email": "samuel@dersam.net",
+      "homepage": "http://dersam.net",
+      "role": "Web Developer"
+    },
+    {
+      "name": "Linus Shops Inc",
+      "email": "corporate@linusshops.com",
+      "homepage": "http://www.linusshops.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "ext-json": "*",
+    "linusshops/iddqd":"@dev"
+  },
+  "extra": {
+    "magento-root-dir": "dummy",
+    "magento-deploystrategy": "none"
+  }
+}
