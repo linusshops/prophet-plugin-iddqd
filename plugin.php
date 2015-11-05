@@ -27,7 +27,7 @@ class Iddqd implements Plugin
         require __DIR__ . '/vendor/autoload.php';
 
         $dir = __DIR__;
-        $this->config = json_encode(__DIR__.'/config.json',true);
+        $this->config = json_decode(file_get_contents(__DIR__.'/config.json'),true);
         //Use the installed version of godmode, instead of the one bundled with the plugin.
         $useMagentoGodmode = isset($this->config['use_magento_godmode']) ?
             $this->config['use_magento_godmode'] : false;
