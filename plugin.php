@@ -13,6 +13,7 @@
 namespace LinusShops\Prophet\Plugins;
 
 use LinusShops\Prophet\Events;
+use LinusShops\Prophet\Events\Options;
 use LinusShops\Prophet\Plugin;
 use LinusShops\Prophet\PluginRepository;
 use PD;
@@ -48,7 +49,7 @@ class Iddqd implements Plugin
 
     public function register()
     {
-        PD::listen(Events::PROPHET_PREMAGENTO, function(&$options=array()){
+        PD::listen(Events::PROPHET_PREMAGENTO, function(Options $options){
             echo "Initializing GodMode...".PHP_EOL;
             $options->set('config_model', 'Linus_Iddqd_Model_Config');
         });
