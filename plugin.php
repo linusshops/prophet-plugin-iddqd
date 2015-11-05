@@ -10,19 +10,39 @@
  * @company Linus Shops
  */
 
-require __DIR__.'/vendor/autoload.php';
+namespace LinusShops\Prophet\Plugins;
 
-$dir = __DIR__;
+use LinusShops\Prophet\Events;
+use LinusShops\Prophet\Plugin;
+use LinusShops\Prophet\PluginRepository;
+use PD;
 
-$loader = function($classname) use($dir) {
-    $path = explode('_', $classname);
-    include $dir
-        .'/vendor/linusshops/iddqd/src/app/code/community/'
-        .implode('/',$path)
-        .'.php'
-    ;
-};
+class Iddqd implements Plugin
+{
+    public function load()
+    {
+        require __DIR__ . '/vendor/autoload.php';
 
-spl_autoload_register($loader);
+        $dir = __DIR__;
 
-$config = new Linus_Iddqd_Model_Config();
+        $loader = function ($classname) use ($dir) {
+            $path = explode('_', $classname);
+            require $dir
+                . '/vendor/linusshops/iddqd/src/app/code/community/'
+                . implode('/', $path)
+                . '.php';
+        };
+
+        spl_autoload_register($loader);
+    }
+
+    public function register()
+    {
+        PD::listen(Events::PROPHET_PREMAGENTO, function(&$options=array()){
+            echo "Initializing GodMode...".PHP_EOL;
+            $options['config_model'] = 'Linus_Iddqd_Model_Config';
+        });
+    }
+}
+
+PluginRepository::register('iddqd', new Iddqd());
