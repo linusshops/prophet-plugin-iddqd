@@ -50,7 +50,6 @@ class Iddqd implements Plugin
     public function register()
     {
         PD::listen(Events::PROPHET_PREMAGENTO, function(Options $options){
-            echo "Initializing GodMode...".PHP_EOL;
             $options->set('config_model', 'Linus_Iddqd_Model_Config');
         });
     }
