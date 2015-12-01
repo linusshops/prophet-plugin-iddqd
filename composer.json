@@ -1,7 +1,7 @@
 {
   "name": "linusshops/prophet-plugin-iddqd",
   "description": "Enable usage of iddqd for overriding classes during tests",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "utility",
   "keywords": [
     "magento",

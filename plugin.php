@@ -20,6 +20,7 @@ use PD;
 
 class Iddqd implements Plugin
 {
+    const EVENT_INJECT = 'IDDQD_EVENT_INJECT';
     private $config = array();
 
     public function load()
@@ -52,6 +53,34 @@ class Iddqd implements Plugin
         PD::listen(Events::PROPHET_PREMAGENTO, function(Options $options){
             $options->set('config_model', 'Linus_Iddqd_Model_Config');
         });
+
+        Events::dispatch(self::EVENT_INJECT, $options = new Events\Options());
+    }
+
+    public function injectEvent($eventName, $className, $method)
+    {
+        $handle = md5($eventName.$className.$method);
+        /** @var \Linus_Iddqd_Model_Config $config */
+        $config = \Mage::getConfig();
+        $merge = clone $config->getPrototype();
+        $merge->loadString("
+    <config>
+    <global>
+        <events>
+            <{$eventName}>
+                <observers>
+                    <{$handle}>
+                        <type>object</type>
+                        <class>{$className}</class>
+                        <method>{$method}</method>
+                    </{$handle}>
+                </observers>
+            </{$eventName}>
+        </events>
+    </global>
+    </config>
+    ");
+        $config->extend($merge);
     }
 }
 
