@@ -58,9 +58,8 @@ class Iddqd implements Plugin
         });
     }
 
-    public function injectEvent($eventName, $className, $method)
+    public function injectEvent($eventName, $className, $method, $handle)
     {
-        $handle = md5($eventName.$className.$method);
         /** @var \Linus_Iddqd_Model_Config $config */
         $config = \Mage::getConfig();
         $merge = clone $config->getPrototype();
