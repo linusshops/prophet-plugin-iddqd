@@ -53,8 +53,9 @@ class Iddqd implements Plugin
         PD::listen(Events::PROPHET_PREMAGENTO, function(Options $options){
             $options->set('config_model', 'Linus_Iddqd_Model_Config');
         });
-        $options = new Events\Options();
-        Events::dispatch(self::EVENT_INJECT, $options);
+        PD::listen(Events::PROPHET_POSTMAGENTO, function(Options $options){
+            Events::dispatch(self::EVENT_INJECT, $options);
+        });
     }
 
     public function injectEvent($eventName, $className, $method)
